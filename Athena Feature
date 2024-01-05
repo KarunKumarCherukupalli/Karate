@@ -1,0 +1,13 @@
+Feature: Amazon Athena Integration Test
+
+Background:
+  * def JavaCode = Java.type('automation.suite.pages.test.karate.feature.AthenaClientFactory')
+  * def athenaClient = JavaCode.createAthenaClient()
+ # * def s3OutputLocation = 's3://ci-data-lineage-qa-use1-info-bucket/dir-survey/output-data/lineage-parquet/'
+  * def query = 'Select * from ci-data-lineage-dir-survey-glue-db.parquet_audit_info;'
+  
+
+@Smoke17
+Scenario: Execute Sample Query
+  * def queryExecutionId = JavaCode.startQueryExecution(athenaClient, query)
+  * print 'Query submitted. Execution ID: ', queryExecutionId
